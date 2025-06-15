@@ -1,8 +1,9 @@
 import React from 'react'
 import TrashIcon from './../assets/delete.png'
 import EditIcon from './../assets/edit.png'
-import toast, {Toaster} from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
+import { Link } from 'react-router'
 
 function DishCard({ id, name, category, loadDishes }) {
 
@@ -29,11 +30,13 @@ function DishCard({ id, name, category, loadDishes }) {
                     onClick={deleteDish}
                 />
 
-                <img
-                    src={EditIcon}
-                    alt="Edit"
-                    className='h-[30px] cursor-pointer'
-                />
+                <Link to={`/edit/${id}`}>
+                    <img
+                        src={EditIcon}
+                        alt="Edit"
+                        className='h-[30px] cursor-pointer'
+                    />
+                </Link>
             </div>
 
             <Toaster />

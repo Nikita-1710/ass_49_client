@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
+import { useParams } from 'react-router'
+import { Link } from 'react-router'
 
 function Edit() {
 
@@ -11,20 +12,16 @@ function Edit() {
         category: ""
     })
 
-    const addDish = async () => {
+    const { dishId } = useParams()
+
+    const editDish = async () => {
         try {
-            const response = await axios.post(`http://localhost:5002/dishes`, {
-                id: dish.id,
+            const response = await axios.put(`http://localhost:5002/dishes/${dishId}`, {
                 name: dish.name,
                 category: dish.category
             })
 
             if (response.data.success) {
-                setDishes({
-                    id: "",
-                    name: "",
-                    category: ""
-                })
                 toast.success(response.data.message)
             }
             else {
@@ -35,6 +32,22 @@ function Edit() {
         }
     }
 
+     const loadDishes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5002/dishes/${dishId}`)
+            setDishes(response.data.data)
+        }
+        catch (e) {
+            toast.error(e.response.data.message)
+        }
+    }
+
+    useEffect(() => {
+        if (dishId) {
+            loadDishes()
+        }
+    }, [dishId])
+
     return (
         <div className="min-h-screen bg-gray-50 px-6 py-10">
             <h1 className="text-3xl font-bold text-center text-indigo-800 mb-6 mt-4">Edit Dish 🍔</h1>
@@ -44,6 +57,7 @@ function Edit() {
                     type='text'
                     placeholder='Enter ID'
                     value={dish.id}
+                    disabled
                     onChange={(e) => setDishes({ ...dish, id: e.target.value })}
                     className='w-72 px-5 py-2.5 border border-blue-200 bg-blue-50 text-blue-800 rounded-lg focus:outline-none'
                 />
@@ -64,7 +78,7 @@ function Edit() {
                     className='w-72 px-5 py-2.5 border border-purple-200 bg-purple-50 text-purple-800 rounded-lg focus:outline-none'
                 />
 
-                <button className="mt-3 w-72 bg-indigo-600 text-white py-2 rounded-lg shadow-md hover:bg-indigo-700 transition cursor-pointer" onClick={addDish}>
+                <button className="mt-3 w-72 bg-indigo-600 text-white py-2 rounded-lg shadow-md hover:bg-indigo-700 transition cursor-pointer" onClick={editDish}>
                     Edit Dish
                 </button>
             </div>
