@@ -6,10 +6,12 @@ import Home from './views/Home'
 import Add from './views/Add'
 
 createRoot(document.getElementById('root')).render(
-<BrowserRouter>
-<Routes>
-  <Route path='/' element={<Home />}/>
-  <Route path='/add' element={<Add />}/>
-</Routes>
-</BrowserRouter>
+  <div className='bg-slate-50 m-0 p-0 fixed min-h-screen w-full'>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/add' element={<Add />} />
+      </Routes>
+    </BrowserRouter>
+  </div>
 )
