@@ -13,7 +13,7 @@ function Add() {
 
     const addDish = async () => {
         try {
-            const response = await axios.post(`http://localhost:5002/dishes`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/dishes`, {
                 id: dish.id,
                 name: dish.name,
                 category: dish.category

@@ -8,7 +8,7 @@ function Home() {
     const [dishes, setDishes] = useState([])
 
     const loadDishes = async () => {
-        const response = await axios.get(`http://localhost:5002/dishes`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/dishes`)
         setDishes(response.data.data)
     }
 

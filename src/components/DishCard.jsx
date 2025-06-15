@@ -8,7 +8,7 @@ import { Link } from 'react-router'
 function DishCard({ id, name, category, loadDishes }) {
 
     const deleteDish = async () => {
-        const response = await axios.delete(`http://localhost:5002/dishes/${id}`)
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/dishes/${id}`)
         if (response.data.success) {
             toast.success(response.data.message)
             loadDishes()

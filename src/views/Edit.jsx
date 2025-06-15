@@ -16,7 +16,7 @@ function Edit() {
 
     const editDish = async () => {
         try {
-            const response = await axios.put(`http://localhost:5002/dishes/${dishId}`, {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/dishes/${dishId}`, {
                 name: dish.name,
                 category: dish.category
             })
@@ -34,7 +34,7 @@ function Edit() {
 
      const loadDishes = async () => {
         try {
-            const response = await axios.get(`http://localhost:5002/dishes/${dishId}`)
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/dishes/${dishId}`)
             setDishes(response.data.data)
         }
         catch (e) {
