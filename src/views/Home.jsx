@@ -20,12 +20,12 @@ function Home() {
         <div className="min-h-screen bg-gray-50 px-6 py-10">
             <h1 className="text-3xl font-bold text-center text-indigo-800 mb-6 mt-4">All Dishes 😋</h1>
 
-            <div>
+            <div className="flex flex-wrap justify-center gap-6">
                 {dishes.map((dishObj, i) => {
-                    const { id, name, category } = dishObj
+                    const { id, name, category } = dishObj;
                     return (
-                        <DishCard key={i} id={id} name={name} category={category} />
-                    )
+                        <DishCard key={i} id={id} name={name} category={category} loadDishes={loadDishes}/>
+                    );
                 })}
             </div>
 
